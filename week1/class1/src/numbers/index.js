@@ -27,21 +27,22 @@ const sum = (arr) => {
 
 /**
  * Returns true if the sum of the array is equal to the given sum, and false if not
+ * ***ACTUALLY, return true of the sum of any two numbers in the array is equal to the given sum, return true if yes and false if no
  * @param {array} arr the array to check against the sum
  * @param {number} sum the sum to check
  */
 const comboSum = (arr, sum) => {
   // write code for numbers.comboSum
 
-  let arrSum = arr.reduce(function(accumulator, currentValue){
-    return accumulator + currentValue;
+  arr.forEach(function(index, position){
+    for (let i = index+1; i < arr.length; i++) {
+      if (index + i == sum) {
+        return true;
+      }
+    }
   })
 
-  if (arrSum == sum) {
-    return true;
-  } else {
-    return false;
-  }
+  return false;
 
 }
 

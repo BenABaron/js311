@@ -34,7 +34,7 @@ The modules will be broken down below:
   * Hint: Reduce
 
 * ComboSum
-  * Determine if any combination of numbers in an array equals a given sum. Return a boolean
+  * Determine if any combination of 2 numbers in an array equals a given sum. Return a boolean
   * Hint: Loop in loop OR indexOf for diff
 
 ## Strings
