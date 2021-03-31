@@ -1,0 +1,14 @@
+GET /users
+get all the users
+
+GET /users/1
+get user with id 1
+
+POST /users
+create a new user
+
+PUT /users/1
+update user with id 1
+
+DELETE /users/1
+deactivate user with id 1
