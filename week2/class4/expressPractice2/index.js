@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 
 // routes
 app.use(require("./routes/contacts"));
-// app.use(require("./routes/comments"));
-// app.use(require("./routes/products"));
-// app.use(require("./routes/vehicles"));
+app.use(require("./routes/comments"));
+app.use(require("./routes/products"));
+app.use(require("./routes/vehicles"));
 
 
 const port = process.env.PORT || 4001;

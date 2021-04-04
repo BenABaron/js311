@@ -19,6 +19,6 @@ router.post("/contacts", contactsController.create);
 // GET /contacts/:id
 // returns a single contact with the matching id
 
-router.get("/contacts:id", contactsController.show)
+router.get("/contacts/:id", contactsController.show)
 
 module.exports = router;

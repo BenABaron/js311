@@ -44,7 +44,17 @@ let create = function(req, res) {
  * @param {*} res 
  */
 let show = function(req, res) {
-  // get a contact by id
+  console.log("Inside the contactsCtrl GET /contacts:id route", req.params);
+  
+  let idToLookFor = req.params.id;
+
+  let contact = contacts.find(function(element){
+    if (element._id == idToLookFor) {
+      return element;
+    }
+  })
+
+  res.json(contact);
 }
 
 module.exports = {list, show, create};
