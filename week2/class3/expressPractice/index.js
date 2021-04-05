@@ -50,16 +50,30 @@ app.get("/users/:id", function(req, res){
 
 })
 
+let nextUserId = 1;
+users.forEach(function(user){
+  if(nextUserId <= user._id){
+    nextUserId = user._id+1;
+  }
+})
+
 // POST /users
 app.post("/users", function(req, res){
   console.log("inside my POST /users route");
   console.log("request body: ", req.body);
 
-  res.json(null);
-
   // HOMEWORK:
   // add an _id attribute
   // add the user sent to the database (state.js)
+
+  // read in the data and assign an id to the user
+  req.body._id = nextUserId;
+
+  // increment the variable holding the next id so when we add the next user, they don't get the same id
+  nextUserId++;
+
+  users.push(req.body);
+  res.send("success!");
 
 })
 
@@ -68,22 +82,52 @@ app.put("/users/:id", function(req, res){
   console.log("inside my PUT /users/:id route ", req.params);
   console.log("request body: ", req.body);
 
-  res.json(null);
-
   // HOMEWORK:
   // update an existing user element
   // NOTE!! make sure that if an id attribute is added in the body that you replace it with the id from the route!
 
+  let idToLookFor = req.params.id;
+
+  let user = users.find(function(element){
+    if (element._id == idToLookFor) {
+      return element;
+    }
+  })
+
+  if (req.body.name) {
+    user.name = req.body.name;
+  }
+
+  if (req.body.occupation) {
+    user.occupation = req.body.occupation;
+  }
+
+  if (req.body.id) {
+    user._id = req.body.id;
+  }
+
+  res.send("success!");
+
+
 })
 
 // DELETE /users/:id
-app.delete("/users/", function(req, res){
+app.delete("/users/:id", function(req, res){
   console.log("inside my DELETE /users/ route ", req.params);
-
-  res.json(null);
 
   // HOMEWORK:
   // for the user with the matching id, add an "active" attribute and set it to false
+  let idToLookFor = req.params.id;
+
+  let user = users.find(function(element){
+    if (element._id == idToLookFor) {
+      return element;
+    }
+  })
+
+  user.isActive = false;
+
+  res.send("success!");
 
 })
 
