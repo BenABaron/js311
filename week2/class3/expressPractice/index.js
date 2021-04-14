@@ -1,5 +1,16 @@
 const express = require('express')
 const bodyParser = require("body-parser")
+const sqlite3 = require('sqlite3').verbose();
+
+let db = new sqlite3.Database('lesson1.db', function(error){
+  if (error) {
+    console.error("Failed to connect to db");
+    console.error(error.message);
+  } else {
+    console.log("Connected to db");
+  }
+})
+
 const app = express()
 app.use(bodyParser.json()); // this allows express to use body parser
 const port = process.env.PORT || 4000
@@ -17,6 +28,21 @@ app.all("/", function(req, res){
   DELETE /users{id}           delete a user
   `);
 });
+
+app.get('/testdb', function(req, res){
+  console.log("inside my GET /testdb route")
+
+  // some code in here to issue this command to the database
+  //  and return the results
+
+  let sql = 'SELECT * from users';
+
+  db.each(sql, function(error, row){
+    console.log("Result from the db = ", row);
+  })
+
+  res.json("success!")
+})
 
 app.get('/users', function(req, res){
   console.log("inside my GET /users route");
@@ -107,7 +133,6 @@ app.put("/users/:id", function(req, res){
   }
 
   res.send("success!");
-
 
 })
 
