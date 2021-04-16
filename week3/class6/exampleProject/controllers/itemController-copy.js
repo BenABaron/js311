@@ -5,7 +5,7 @@ let connection = require("../sql/connection");
 let list = function(req, res){
   console.log("Inside the list function");
 
-  connection.query("SELECT * FROM items", function(error, rows){
+  connection.all("SELECT * FROM items", function(error, rows){
     if (error) {
       console.error("Error when fetching data. Error: ", error);
       res.sendStatus(500);
@@ -27,7 +27,7 @@ let get = function(req, res) {
     let params = [];
     params.push(idToLookFor);
 
-    connection.query(getStmt, params, function(error, row){
+    connection.all(getStmt, params, function(error, row){
       if (error) {
         console.error("Failed to find item. Error: ", error);
         res.sendStatus(500);
@@ -61,7 +61,7 @@ let create = function(req, res) {
     params.push(itemName);
     params.push('NOT DONE'); // even though this is safe, still better to use params
   
-    connection.query(insertStmt, params, function(error){
+    connection.run(insertStmt, params, function(error){
       if (error) {
         console.error("Error when inserting data. Error: ", error);
         res.sendStatus(500);
@@ -89,7 +89,7 @@ let remove = function(req, res) {
     let params = [];
     params.push(idToDelete);
 
-    connection.query(deleteStmt, params, function(error){
+    connection.run(deleteStmt, params, function(error){
       if (error) {
         console.error("Failed to delete. Error: ", error);
         res.sendStatus(500);

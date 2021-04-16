@@ -1,32 +1,28 @@
-let sqlite3 = require("sqlite3");
+// mysql library to connect to the mysql database
 
-let connection = new sqlite3.Database("./app.db", 
-        sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, function(error){
-  if (error){
-    console.error("Failed to make a connection to the database. Error: ", error);
-  } else {
-    console.log("Connection to db established");
-    setupDB();
-  }
-})
+const mysql = require('mysql')
 
-let createItemsTable = `
-CREATE TABLE IF NOT EXISTS items (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name varchar NOT NULL,
-  status varchar
-);
-`
+class Connection {
+  constructor() {
+    if (!this.pool) {
+      console.log('creating connection...')
+      this.pool = mysql.createPool({
+        connectionLimit: 100,
+        host: 'den1.mysql6.gear.host',
+        user: 'bendb2',
+        password: 'Wk170EB_nH?V',
+        database: 'bendb2'
+      })
 
-let setupDB = function(){
-  console.log("Setting up db");
-  connection.exec(createItemsTable, function(error){
-    if (error) {
-      console.error("Failed when setting up database. Error: ", error)
-    } else {
-      console.log("Initializing db...");
+      return this.pool
     }
-  })
+
+    return this.pool
+  }
 }
 
-module.exports = connection;
+const instance = new Connection()
+
+
+
+module.exports = instance;
