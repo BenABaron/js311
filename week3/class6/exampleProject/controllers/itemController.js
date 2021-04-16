@@ -18,8 +18,24 @@ let list = function(req, res){
 
 
 let get = function(req, res) {
-  console.log("Inside the get function");
-  res.send("success!");
+  console.log("Inside the get function ", req.params);
+
+  let idToLookFor = req.params.id;
+
+  if (idToLookFor) {
+    let getStmt = "SELECT * FROM items WHERE id = ?";
+    let params = [];
+    params.push(idToLookFor);
+
+    connection.all(getStmt, params, function(error, row){
+      if (error) {
+        console.error("Failed to find item. Error: ", error);
+        res.sendStatus(500);
+      } else {
+        res.json(row);
+      }
+    })
+  }
 }
 
 
