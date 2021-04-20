@@ -17,6 +17,7 @@ class Connection {
 
     return this.pool
   }
+
 }
 
 const instance = new Connection()
