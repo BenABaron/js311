@@ -1,0 +1,10 @@
+heroku git:remote -a "name of app"
+git remote -v
+git push -u heroku "branch you're pushing"
+git subtree push --prefix path/to/file heroku master //pushes a part of a repo
+
+git status
+
+heroku logs -t // shows error messages
+
+
